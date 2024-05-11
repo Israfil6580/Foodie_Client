@@ -4,6 +4,8 @@ import LoginForm from "../pages/LoginForm";
 import RegisterForm from "../pages/RegisterForm";
 import Home from "../pages/Home";
 import AddFood from "../pages/AddFood";
+import AvilableFood from "../pages/AvilableFood";
+import FoodDetails from "../pages/FoodDetails";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
             {
                 path: "/add-food",
                 element: <AddFood />
+            },
+            {
+                path: "/available-foods",
+                element: <AvilableFood />
+            },
+            {
+                path: "/available-foods/:id",
+                element: <FoodDetails />,
             }
         ]
     },

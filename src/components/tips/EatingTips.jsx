@@ -2,7 +2,7 @@ import healthy from "/images/healthy.jpg"
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 const EatingTips = () => {
     return (
-        <div className="max-w-6xl px-2 mx-auto">
+        <div className="max-w-7xl px-2 mx-auto">
             <div className="text-center">
                 <h1 className="font-title uppercase text-3xl lg:text-4xl font-bold pb-10">healthy eating tips</h1>
             </div>

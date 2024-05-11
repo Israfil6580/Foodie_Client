@@ -21,11 +21,10 @@ function RegisterForm() {
         try {
             const result = await createUser(email, password);
             await updateUserProfile(name, photo);
-
             // Optimistic UI Update
             setUser({ ...result?.user, photoURL: photo, displayName: name });
-
             toast.success('Signup Successful');
+            setLoading(false)
         } catch (err) {
             toast.error(err?.message || 'Failed to register');
             setLoading(false);
