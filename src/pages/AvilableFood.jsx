@@ -15,7 +15,10 @@ const AvilableFood = () => {
 
     const getData = async () => {
         try {
-            const { data } = await axios("http://localhost:4000/food");
+            const response = await axios("http://localhost:4000/food");
+            const allData = response.data;
+            const data = allData.filter(sData => sData.foodStatus === "available");
+            console.log(data);
             setAllFood(data);
             setFilteredFood(data);
         } catch (error) {
@@ -92,7 +95,7 @@ const AvilableFood = () => {
                                         <div className="flex items-center space-x-2">
                                             <img
                                                 alt="Donator"
-                                                className="h-10 w-10 rounded-xl"
+                                                className="h-10 w-10 object-cover rounded-xl"
                                                 src={food.donatorPhoto}
                                             />
                                             <div className="flex flex-col leading-tight">

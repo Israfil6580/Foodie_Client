@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import axios from 'axios';
 import toast from "react-hot-toast"
+import { IoAddCircleOutline } from "react-icons/io5";
 function AddFood() {
     const { user, loading, setLoading } = useContext(AuthContext);
 
@@ -90,7 +91,13 @@ function AddFood() {
 
                 <div className="text-center">
                     <button type="submit" className="btn btn-warning bg-warning text-white min-h-[2.5rem] h-[2.5rem] transition-transform px-10 mt-5 mb-5" hidden={loading}>
-                        {loading ? <span className="loading bg-white loading-spinner loading-sm"></span> : "Add"}
+                        {loading ? (
+                            <>Add<span className="loading bg-white loading-spinner loading-sm"></span></>
+                        ) : (
+                            <>
+                                Add<IoAddCircleOutline className="text-xl" />
+                            </>
+                        )}
                     </button>
                 </div>
 

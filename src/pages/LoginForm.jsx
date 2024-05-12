@@ -4,6 +4,7 @@ import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
+import { CiLogin } from "react-icons/ci";
 import toast from 'react-hot-toast';
 
 function LoginForm() {
@@ -78,7 +79,13 @@ function LoginForm() {
                             <a href="#" className="text-sm text-gray-600 hover:text-gray-500">Forget Password?</a>
 
                             <button className="btn btn-warning bg-warning text-white min-h-[2.5rem] h-[2.5rem] transition-transform" hidden={loading}>
-                                {loading ? <span className="loading bg-white loading-spinner loading-sm"></span> : "Sign In"}
+                                {loading ? (
+                                    <>Sign In <span className="loading bg-white loading-spinner loading-sm"></span></>
+                                ) : (
+                                    <>
+                                        Sign In <CiLogin className="text-lg" />
+                                    </>
+                                )}
                             </button>
                         </div>
                     </form>

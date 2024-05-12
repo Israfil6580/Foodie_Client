@@ -3,6 +3,7 @@ import LoginLogo from "/images/login_logo.svg";
 import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
+import { CiLogin } from "react-icons/ci";
 
 function RegisterForm() {
     const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
@@ -64,7 +65,13 @@ function RegisterForm() {
                             <a href="#" className="text-sm text-gray-600 hover:text-gray-500">Forget Password?</a>
 
                             <button className="btn btn-warning bg-warning text-white min-h-[2.5rem] h-[2.5rem] transition-transform" hidden={loading}>
-                                {loading ? <span className="loading bg-white loading-spinner loading-sm"></span> : "Register"}
+                                {loading ? (
+                                    <>Register <span className="loading bg-white loading-spinner loading-sm"></span></>
+                                ) : (
+                                    <>
+                                        Register <CiLogin className="text-lg" />
+                                    </>
+                                )}
                             </button>
                         </div>
                     </form>
