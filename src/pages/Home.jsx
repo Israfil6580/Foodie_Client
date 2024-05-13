@@ -4,6 +4,7 @@ import Feature from "../components/FeatureFood/Feature";
 import Faq from "../components/faq/Faq";
 import EatingTips from "../components/tips/EatingTips";
 import { Helmet } from "react-helmet-async";
+import Testimonial from "../components/testimonial/Testimonial";
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
             <Banner />
             <Feature />
             <EatingTips />
+            <Testimonial />
             <Faq />
             <ScrollRestoration />
         </div>

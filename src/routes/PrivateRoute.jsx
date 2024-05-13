@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { AuthContext } from '../provider/AuthProvider'
 // import { FallingLines } from 'react-loader-spinner'
 const PrivateRoute = ({ children }) => {
-    const { user, loading, customLoading } = useContext(AuthContext)
+    const { user, customLoading } = useContext(AuthContext)
     const location = useLocation()
 
     if (customLoading) {
