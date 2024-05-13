@@ -6,7 +6,6 @@ import { MdProductionQuantityLimits } from "react-icons/md";
 import { Link } from "react-router-dom";
 const Feature = () => {
     const [allFood, setAllFood] = useState([]);
-    console.log(allFood);
     useEffect(() => {
         getData();
     }, []);
@@ -32,7 +31,7 @@ const Feature = () => {
                     allFood.slice(0, 6).map(food => {
                         return (
                             <div key={food._id} className="card card-compact w-auto bg-green-100 lg:hover:scale-105 transition-transform pb-2">
-                                <figure><img className="h-60 w-auto object-cover" src={food.foodImage} alt="Shoes" /></figure>
+                                <figure><img className="h-60 w-full object-cover" src={food.foodImage} alt="Shoes" /></figure>
                                 <div className="card-body">
                                     <div className="mt-1 space-y-2">
                                         <h3 className="text-lg font-semibold title-font uppercase tracking-tight">{food.foodName}</h3>
@@ -46,7 +45,7 @@ const Feature = () => {
                                         </div>
                                         <div className="flex items-center space-x-2">
                                             <CiCalendar className="h-5 w-5 text-gray-500" />
-                                            <span className="text-sm">Expires - {food.expiredDateTime}</span>
+                                            <span className="text-sm">Expires - {food.expireDate}</span>
                                         </div>
                                         <p className="text-sm text-gray-500">
                                             Notes - {food.additionalNotes.split(" ").slice(0, 19).join(" ")}

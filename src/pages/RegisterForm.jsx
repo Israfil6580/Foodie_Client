@@ -15,7 +15,7 @@ function RegisterForm() {
         const email = form.email.value;
         const name = form.name.value;
         const password = form.password.value;
-        const photo = form.photo.url;
+        const photo = form.photo.value;
 
         setLoading(true);
 
@@ -29,7 +29,6 @@ function RegisterForm() {
         } catch (err) {
             toast.error(err?.message || 'Failed to register');
             setLoading(false);
-            console.log(err?.message);
         }
     };
 

@@ -3,19 +3,20 @@ import { AuthContext } from "../provider/AuthProvider";
 import axios from 'axios';
 import toast from "react-hot-toast"
 import { IoAddCircleOutline } from "react-icons/io5";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 function AddFood() {
     const { user, loading, setLoading } = useContext(AuthContext);
-
     const [foodName, setFoodName] = useState("");
     const [foodImage, setFoodImage] = useState("");
     const [foodQuantity, setFoodQuantity] = useState("");
     const [pickupLocation, setPickupLocation] = useState("");
-    const [expiredDateTime, setExpiredDateTime] = useState("");
     const [additionalNotes, setAdditionalNotes] = useState("");
     const [foodStatus, setFoodStatus] = useState("available");
     const [donatorName, setDonatorName] = useState("");
     const [donatorEmail, setDonatorEmail] = useState("");
     const [donatorPhoto, setDonatorPhoto] = useState("");
+    const [startDate, setStartDate] = useState(new Date().toLocaleDateString());
 
     useEffect(() => {
         setLoading(false)
@@ -29,13 +30,14 @@ function AddFood() {
     const handleAddFood = async (e) => {
         setLoading(true)
         e.preventDefault();
-        const addedInfo = { foodName, foodImage, foodQuantity, pickupLocation, expiredDateTime, additionalNotes, foodStatus, donatorName, donatorEmail, donatorPhoto };
+        const addedInfo = { foodName, foodImage, foodQuantity, pickupLocation, expireDate: startDate, additionalNotes, foodStatus, donatorName, donatorEmail, donatorPhoto };
+        console.log(addedInfo);
         const { data } = await axios.post('http://localhost:4000/food', addedInfo);
         console.log(data);
         setTimeout(() => {
             setLoading(false);
             toast.success("Food item added successfully");
-        }, 1500);
+        }, 1000);
     };
 
     return (
@@ -62,8 +64,13 @@ function AddFood() {
                         <input type="text" id="pickupLocation" onChange={(e) => setPickupLocation(e.target.value)} placeholder="Enter pickup location" className="block w-full mt-1 p-2 border-gray-300 rounded-md" required />
                     </div>
                     <div className="mb-2">
-                        <label htmlFor="expiredDateTime" className="block font-medium">Expired Date/Time</label>
-                        <input type="datetime-local" id="expiredDateTime" onChange={(e) => setExpiredDateTime(e.target.value)} placeholder="Enter expired date/time" className="block w-full mt-1 p-2 border-gray-300 rounded-md" required />
+                        <label htmlFor="expiredDateTime" className="block font-medium">Expired Date</label>
+                        <DatePicker
+                            className="p-2 rounded-md w-[414px]"
+                            selected={startDate}
+                            onChange={date => setStartDate(date).toLocaleDateString()}
+                        />
+
                     </div>
                     <div className="mb-2">
                         <label htmlFor="additionalNotes" className="block font-medium">Additional Notes</label>

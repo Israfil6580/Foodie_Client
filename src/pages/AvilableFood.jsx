@@ -18,7 +18,6 @@ const AvilableFood = () => {
             const response = await axios("http://localhost:4000/food");
             const allData = response.data;
             const data = allData.filter(sData => sData.foodStatus === "available");
-            console.log(data);
             setAllFood(data);
             setFilteredFood(data);
         } catch (error) {
@@ -32,7 +31,7 @@ const AvilableFood = () => {
 
     useEffect(() => {
         if (sortBy === "expireDate") {
-            const sortedFood = [...filteredFood].sort((a, b) => new Date(a.expiredDateTime) - new Date(b.expiredDateTime));
+            const sortedFood = [...filteredFood].sort((a, b) => new Date(a.expireDate) - new Date(b.expireDate));
             setFilteredFood(sortedFood);
         }
     }, [sortBy]);
@@ -51,7 +50,7 @@ const AvilableFood = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto min-h-screen pb-20">
+        <div className="max-w-7xl mx-auto min-h-screen pb-20 px-2">
             <div className="text-center">
                 <h1 className="font-title uppercase text-3xl lg:text-4xl font-bold py-10">available&nbsp;&nbsp;foods</h1>
             </div>
@@ -66,13 +65,13 @@ const AvilableFood = () => {
             </div>
             {filteredFood.length === 0 ? (
                 <div className="text-center">
-                    <h1>Nothing Found</h1>
+                    <h1 className="text-3xl font-bold font-title">No food found</h1>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {filteredFood.map(food => (
                         <div key={food._id} className="card card-compact w-auto bg-green-100 lg:hover:scale-105 transition-transform">
-                            <figure><img className="h-60 w-auto object-cover" src={food.foodImage} alt="Shoes" /></figure>
+                            <figure><img className="h-60 w-full object-cover" src={food.foodImage} alt="Shoes" /></figure>
                             <div className="card-body">
                                 <div className="mt-1 space-y-2">
                                     <h3 className="text-lg font-semibold title-font uppercase tracking-tight">{food.foodName}</h3>
@@ -86,10 +85,10 @@ const AvilableFood = () => {
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <CiCalendar className="h-5 w-5 text-gray-500" />
-                                        <span className="text-sm">Expires - {food.expiredDateTime}</span>
+                                        <span className="text-sm">Expires - {food.expireDate}</span>
                                     </div>
                                     <p className="text-sm text-gray-500">
-                                        Notes - {food.additionalNotes.split(" ").slice(0, 19).join(" ")}...
+                                        Notes - {food.additionalNotes.split(" ").slice(0, 19).join(" ")}
                                     </p>
                                     <div className="flex lg:flex-row flex-col gap-4 lg:gap-0 justify-between lg:items-center">
                                         <div className="flex items-center space-x-2">

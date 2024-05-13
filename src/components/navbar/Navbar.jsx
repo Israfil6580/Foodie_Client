@@ -14,7 +14,7 @@ const Navbar = () => {
             logOut();
             toast.success("Logout successfully");
             setLoadingForLogout(false)
-        }, 1500)
+        }, 1000)
     };
 
     const navlinks = (
@@ -50,16 +50,16 @@ const Navbar = () => {
                     {user ? (
                         <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar" >
-                                <div className="w-10 rounded-full">
-                                    <img alt={user.displayName} src={user?.photoURL} />
+                                <div className="w-10 h-10 rounded-full">
+                                    <img alt={user?.photoURL} src={user?.photoURL} />
                                 </div>
                             </div>
                             <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow flex items-center justify-center dropdown-content bg-green-100 rounded-box">
                                 <div className="grid gap-1 w-64">
                                     <div className="flex items-center gap-2">
                                         <img
-                                            alt={user.displayName}
-                                            className="rounded-full h-12 w-12 object-cover"
+                                            alt={user.photoURL}
+                                            className="rounded-full h-10 w-10 object-cover"
                                             src={user?.photoURL || ""}
 
                                         />
