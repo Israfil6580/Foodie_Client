@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { CiLogin } from "react-icons/ci";
 import toast from 'react-hot-toast';
+import { Helmet } from "react-helmet-async";
 
 function LoginForm() {
     const { seeOrNot, see, signIn, signInWithGoogle, signInWithGithub } = useContext(AuthContext);
@@ -64,6 +65,9 @@ function LoginForm() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
         >
+            <Helmet>
+                <title>Foddie | Login</title>
+            </Helmet>
             <motion.div
                 className="w-full max-w-sm mx-auto overflow-hidden bg-green-100 rounded-2xl shadow-md"
                 initial={{ opacity: 0, y: 50 }}

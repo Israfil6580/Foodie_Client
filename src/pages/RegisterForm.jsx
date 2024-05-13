@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import { CiLogin } from "react-icons/ci";
+import { Helmet } from "react-helmet-async";
 
 function RegisterForm() {
     const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
@@ -42,6 +43,9 @@ function RegisterForm() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
         >
+            <Helmet>
+                <title>Foddie | Register</title>
+            </Helmet>
             <motion.div
                 className="w-full max-w-sm mx-auto overflow-hidden bg-green-100 rounded-2xl shadow-md"
                 initial={{ opacity: 0, y: 50 }}

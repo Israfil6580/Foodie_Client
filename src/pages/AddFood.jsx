@@ -7,7 +7,7 @@ import { MdOutlineAddCircle } from "react-icons/md";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ScrollRestoration, useNavigate } from "react-router-dom";
-
+import { Helmet } from 'react-helmet-async';
 
 function AddFood() {
     const { user, loading, setLoading } = useContext(AuthContext);
@@ -39,10 +39,10 @@ function AddFood() {
 
         setTimeout(async () => {
             try {
-                const { data } = await axios.post('http://localhost:4000/food', addedInfo);
+                await axios.post('https://server-five-coral.vercel.app/food', addedInfo);
                 setLoading(false);
-                toast.success("Food item added successfully");
                 navigate("/manage-my-foods")
+                toast.success("Food item added successfully");
             } catch (error) {
                 setLoading(false);
                 toast.error("Failed to add food item");
@@ -57,6 +57,9 @@ function AddFood() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
         >
+            <Helmet>
+                <title>Foddie | Add_Food</title>
+            </Helmet>
             <motion.div
                 className="w-full max-w-5xl mx-auto overflow-x-hidden bg-green-100 rounded-2xl shadow-md"
                 initial={{ opacity: 0, y: 50 }}

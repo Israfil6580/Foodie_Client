@@ -6,23 +6,23 @@ import { GoArrowUpRight } from "react-icons/go";
 import { LuDollarSign } from "react-icons/lu";
 import toast from "react-hot-toast";
 import { AuthContext } from "../provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const FoodDetails = () => {
     const { user, setLoading, loading } = useContext(AuthContext);
     const { id } = useParams();
     const [detailsData, setDetailsData] = useState([]);
     const navigate = useNavigate();
-    const dialogRef = useRef(null); // Create a ref for the dialog element
+    const dialogRef = useRef(null);
 
     const handleRequest = async (e) => {
         e.preventDefault();
-        setLoading(true);
         if (user.email === detailsData.donatorEmail) {
+            setLoading(true);
             return setTimeout(() => {
                 toast.error("Cannot make request your own donation");
-                dialogRef.current.close();
                 setLoading(false);
-                return;
+                dialogRef.current.close();
             }, 1000);
         }
 
@@ -32,23 +32,24 @@ const FoodDetails = () => {
         const donationAmount = e.target.amount.value;
         const foodStatus = "Requested";
         const addedInfo = { requestDate, userEmail, additionalNotes, foodStatus, donationAmount };
+        setLoading(true)
         try {
-            const { data } = await axios.patch(`http://localhost:4000/food/${id}`, addedInfo);
+            const { data } = await axios.patch(`https://server-five-coral.vercel.app/food/${id}`, addedInfo);
             setTimeout(() => {
+                setLoading(false);
                 toast.success("Food requested successfully");
                 navigate("/my-food-request");
-                setLoading(false);
             }, 1000);
         } catch (error) {
+            setLoading(false);
             console.error("Error updating food item:", error);
             toast.error("Failed to update food item");
-            setLoading(false);
         }
     };
 
     const getData = async () => {
         try {
-            const { data } = await axios(`http://localhost:4000/food/${id}`);
+            const { data } = await axios(`https://server-five-coral.vercel.app/food/${id}`);
             setDetailsData(...data);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -66,6 +67,9 @@ const FoodDetails = () => {
             transition={{ duration: 0.5 }}
             className="max-w-7xl px-2 mx-auto py-20 flex gap-6 lg:flex-row flex-col-reverse lg:items-start"
         >
+            <Helmet>
+                <title>Foddie | Details_Food</title>
+            </Helmet>
             <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -122,19 +126,25 @@ const FoodDetails = () => {
                             >
                                 Request<GoArrowUpRight className="text-xl" />
                             </motion.button>
+
                         </div>
                         <dialog id="my_modal_4" ref={dialogRef} className="modal">
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.3 }}
-                                className="modal-box w-11/12 max-w-5xl bg-green-50"
+                                className="modal-box w-11/12 max-w-5xl relative bg-green-50"
                             >
+                                <form method="dialog">
+                                    {/* if there is a button in form, it will close the modal */}
+                                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                </form>
                                 <div className="flex lg:flex-row flex-col-reverse gap-4 pt-5 lg:pt-0">
                                     <div className="lg:w-7/12 w-full">
                                         <div className="pb-4">
                                             <h3 className="font-bold lg:text-3xl text-2xl font-title">Request Food</h3>
                                         </div>
+
                                         <img src={detailsData.foodImage} className="w-full h-48 md:h-[28rem] rounded-md object-cover" alt="" />
                                     </div>
                                     <div className="lg:w-5/12 w-full">
@@ -215,10 +225,7 @@ const FoodDetails = () => {
                                         </form>
                                     </div>
                                 </div>
-                                <form method="dialog">
-                                    {/* if there is a button in form, it will close the modal */}
-                                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                                </form>
+
                             </motion.div>
                         </dialog>
                     </div>
