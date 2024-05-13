@@ -1,3 +1,4 @@
+import { ScrollRestoration } from "react-router-dom";
 import Banner from "../components/Banner/Banner";
 import Feature from "../components/FeatureFood/Feature";
 import Faq from "../components/faq/Faq";
@@ -10,6 +11,7 @@ const Home = () => {
             <Feature />
             <EatingTips />
             <Faq />
+            <ScrollRestoration />
         </div>
     );
 };

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { ScrollRestoration, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { GoArrowUpRight } from "react-icons/go";
 import { LuDollarSign } from "react-icons/lu";
@@ -63,13 +63,13 @@ const FoodDetails = () => {
         <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: .5 }}
+            transition={{ duration: 0.5 }}
             className="max-w-7xl px-2 mx-auto py-20 flex gap-6 lg:flex-row flex-col-reverse lg:items-start"
         >
             <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: .5, delay: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
                 className="lg:w-4/12 bg-green-100 rounded-md p-6"
             >
                 <div className="mb-3">
@@ -89,7 +89,7 @@ const FoodDetails = () => {
             <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: .5, delay: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
                 className="lg:w-8/12 bg-green-100 rounded-md md:p-6 p-2"
             >
                 <div className="flex lg:flex-row flex-col gap-5">
@@ -222,6 +222,7 @@ const FoodDetails = () => {
                             </motion.div>
                         </dialog>
                     </div>
+                    <ScrollRestoration />
                 </div>
             </motion.div>
         </motion.div>
