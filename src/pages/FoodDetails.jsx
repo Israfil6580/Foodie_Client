@@ -1,17 +1,19 @@
 import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 import { GoArrowUpRight } from "react-icons/go";
-import { AuthContext } from "../provider/AuthProvider";
 import { LuDollarSign } from "react-icons/lu";
 import toast from "react-hot-toast";
+import { AuthContext } from "../provider/AuthProvider";
 
 const FoodDetails = () => {
-    const { user, setLoading, loading } = useContext(AuthContext)
-    const { id } = useParams()
-    const [detailsData, setDetailsData] = useState([])
-    const navigate = useNavigate()
+    const { user, setLoading, loading } = useContext(AuthContext);
+    const { id } = useParams();
+    const [detailsData, setDetailsData] = useState([]);
+    const navigate = useNavigate();
     const dialogRef = useRef(null); // Create a ref for the dialog element
+
     const handleRequest = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -28,15 +30,15 @@ const FoodDetails = () => {
         const requestDate = e.target.requestDate.value;
         const additionalNotes = e.target.notes.value;
         const donationAmount = e.target.amount.value;
-        const foodStatus = "Requested"
-        const addedInfo = { requestDate, userEmail, additionalNotes, foodStatus, donationAmount }
+        const foodStatus = "Requested";
+        const addedInfo = { requestDate, userEmail, additionalNotes, foodStatus, donationAmount };
         try {
             const { data } = await axios.patch(`http://localhost:4000/food/${id}`, addedInfo);
             setTimeout(() => {
                 toast.success("Food requested successfully");
-                navigate("/my-food-request")
+                navigate("/my-food-request");
                 setLoading(false);
-            }, 1000)
+            }, 1000);
         } catch (error) {
             console.error("Error updating food item:", error);
             toast.error("Failed to update food item");
@@ -47,62 +49,87 @@ const FoodDetails = () => {
     const getData = async () => {
         try {
             const { data } = await axios(`http://localhost:4000/food/${id}`);
-            setDetailsData(...data)
+            setDetailsData(...data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
 
     useEffect(() => {
-        getData()
-    }, [])
+        getData();
+    }, []);
 
     return (
-        <div className="max-w-7xl px-2 mx-auto py-20 flex gap-6 lg:flex-row flex-col-reverse lg:items-start">
-            <div className="lg:w-4/12 bg-green-100 rounded-md p-6">
+        <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: .5 }}
+            className="max-w-7xl px-2 mx-auto py-20 flex gap-6 lg:flex-row flex-col-reverse lg:items-start"
+        >
+            <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: .5, delay: 0.2 }}
+                className="lg:w-4/12 bg-green-100 rounded-md p-6"
+            >
                 <div className="mb-3">
-                    <h1 className="lg:text-2xl text-xl font-title font-bold">Donor&nbsp; Information</h1>
+                    <h1 className="lg:text-2xl text-xl font-title font-bold">Donor Information</h1>
                 </div>
                 <div className="flex gap-2 flex-col">
                     <div>
-                        <h2 className="text-sm font-title">Donor&nbsp;Name</h2>
+                        <h2 className="text-sm font-title">Donor Name</h2>
                         <p className="text-xl font-title font-bold">{detailsData.donatorName}</p>
                     </div>
                     <div>
-                        <h2 className="text-sm font-title">Food&nbsp; Pickup&nbsp; Location</h2>
+                        <h2 className="text-sm font-title">Food Pickup Location</h2>
                         <p className="text-xl font-title font-bold tracking-wide">{detailsData.pickupLocation}</p>
                     </div>
                 </div>
-            </div>
-            <div className="lg:w-8/12 bg-green-100 rounded-md md:p-6 p-2">
+            </motion.div>
+            <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: .5, delay: 0.2 }}
+                className="lg:w-8/12 bg-green-100 rounded-md md:p-6 p-2"
+            >
                 <div className="flex lg:flex-row flex-col gap-5">
                     <div className="lg:w-8/12">
                         <div className="mb-3">
-                            <h1 className="lg:text-2xl text-xl font-title font-bold">Food&nbsp; Information</h1>
+                            <h1 className="lg:text-2xl text-xl font-title font-bold">Food Information</h1>
                         </div>
                         <img className="md:h-80 h-56 w-full object-cover" src={detailsData.foodImage} alt="" />
                     </div>
                     <div className="lg:w-4/12 flex flex-col gap-3 justify-center">
                         <div>
-                            <h2 className="text-sm font-title leading-tight">Food&nbsp;Name</h2>
+                            <h2 className="text-sm font-title leading-tight">Food Name</h2>
                             <h1 className="text-xl font-title font-bold leading-tight">{detailsData.foodName}</h1>
                         </div>
                         <div>
-                            <h2 className="text-sm font-title leading-tight">Food&nbsp;Quantity</h2>
+                            <h2 className="text-sm font-title leading-tight">Food Quantity</h2>
                             <h1 className="text-xl font-title font-bold leading-tight">{detailsData.foodQuantity}</h1>
                         </div>
                         <div>
-                            <h2 className="text-sm font-title leading-tight">Expired&nbsp;Date
-                            </h2>
+                            <h2 className="text-sm font-title leading-tight">Expired Date</h2>
                             <h1 className="text-xl font-title font-bold leading-tight">{detailsData.expireDate}</h1>
                         </div>
                         {/* modal */}
                         <div className="flex">
-                            <button className="btn btn-warning text-white font-medium h-[2.5rem] min-h-[2.5rem]" onClick={() => document.getElementById('my_modal_4').showModal()}>Request<GoArrowUpRight className="text-xl" /></button>
+                            <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                className="btn btn-warning text-white font-medium h-[2.5rem] min-h-[2.5rem]"
+                                onClick={() => document.getElementById('my_modal_4').showModal()}
+                            >
+                                Request<GoArrowUpRight className="text-xl" />
+                            </motion.button>
                         </div>
-
                         <dialog id="my_modal_4" ref={dialogRef} className="modal">
-                            <div className="modal-box w-11/12 max-w-5xl bg-green-50">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.3 }}
+                                className="modal-box w-11/12 max-w-5xl bg-green-50"
+                            >
                                 <div className="flex lg:flex-row flex-col-reverse gap-4 pt-5 lg:pt-0">
                                     <div className="lg:w-7/12 w-full">
                                         <div className="pb-4">
@@ -192,12 +219,12 @@ const FoodDetails = () => {
                                     {/* if there is a button in form, it will close the modal */}
                                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                 </form>
-                            </div>
+                            </motion.div>
                         </dialog>
                     </div>
                 </div>
-            </div >
-        </div >
+            </motion.div>
+        </motion.div>
     );
 };
 

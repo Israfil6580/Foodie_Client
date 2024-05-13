@@ -14,13 +14,15 @@ const ManageFood = () => {
     const [MyAddedFood, setMyAddedFood] = useState([])
     const [singleUpdate, setSingleUpdate] = useState([]);
     const [startDate, setStartDate] = useState(null);
+
+
     const submitPurpose = (id) => {
         axios(`http://localhost:4000/food/${id}`)
             .then(response => {
                 setSingleUpdate(...response.data);
+                getData()
             });
     }
-
     useEffect(() => {
         if (singleUpdate.expireDate) {
             setStartDate(new Date(singleUpdate.expireDate).toLocaleDateString());
@@ -46,7 +48,6 @@ const ManageFood = () => {
         const donatorPhoto = form.donatorPhoto.value;
         const addedInfo = { foodName, foodImage, foodQuantity, pickupLocation, expireDate: startDate, additionalNotes, foodStatus, donatorName, donatorEmail, donatorPhoto };
         setLoading(true);
-
         axios.put(`http://localhost:4000/food/${singleUpdate._id}`, addedInfo)
             .then(response => {
                 setTimeout(() => {

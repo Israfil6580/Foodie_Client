@@ -8,11 +8,13 @@ import AvilableFood from "../pages/AvilableFood";
 import FoodDetails from "../pages/FoodDetails";
 import ManageFood from "../pages/ManageFood";
 import MyRequestFood from "../pages/MyRequestFood";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Main />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 index: true,

@@ -1,10 +1,12 @@
 import { useState, useContext, useEffect } from "react";
+import { motion } from "framer-motion";
 import { AuthContext } from "../provider/AuthProvider";
 import axios from 'axios';
 import toast from "react-hot-toast"
 import { IoAddCircleOutline } from "react-icons/io5";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
 function AddFood() {
     const { user, loading, setLoading } = useContext(AuthContext);
     const [foodName, setFoodName] = useState("");
@@ -41,7 +43,12 @@ function AddFood() {
     };
 
     return (
-        <div className="max-w-3xl mx-auto mt-8 min-h-screen px-2">
+        <motion.div
+            initial={{ opacity: 0, y: -20, x: 20 }}
+            animate={{ opacity: 1, y: 0, x: 0 }}
+            transition={{ duration: .5 }}
+            className="max-w-3xl mx-auto mt-8 min-h-screen px-2"
+        >
             <div className="text-center">
                 <h1 className="font-title uppercase text-2xl lg:text-3xl font-bold pb-10">Add Food</h1>
             </div>
@@ -68,7 +75,7 @@ function AddFood() {
                         <DatePicker
                             className="p-2 rounded-md w-[414px]"
                             selected={startDate}
-                            onChange={date => setStartDate(date).toLocaleDateString()}
+                            onChange={date => setStartDate(date.toLocaleDateString())}
                         />
 
                     </div>
@@ -95,9 +102,14 @@ function AddFood() {
                         </select>
                     </div>
                 </div>
-
                 <div className="text-center">
-                    <button type="submit" className="btn btn-warning bg-warning text-white min-h-[2.5rem] h-[2.5rem] transition-transform px-10 mt-5 mb-5" hidden={loading}>
+                    <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        type="submit"
+                        className="btn btn-warning bg-warning text-white min-h-[2.5rem] h-[2.5rem] transition-transform px-10 mt-5 mb-5"
+                        hidden={loading}
+                    >
                         {loading ? (
                             <>Add<span className="loading bg-white loading-spinner loading-sm"></span></>
                         ) : (
@@ -105,12 +117,10 @@ function AddFood() {
                                 Add<IoAddCircleOutline className="text-xl" />
                             </>
                         )}
-                    </button>
+                    </motion.button>
                 </div>
-
             </form>
-        </div>
-
+        </motion.div>
     );
 }
 
