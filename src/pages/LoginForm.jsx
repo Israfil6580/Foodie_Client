@@ -16,13 +16,12 @@ function LoginForm() {
     const location = useLocation()
     const navigate = useNavigate()
 
-
     const handleGoogleSignIn = async () => {
         try {
             setLoading(true);
             const result = await signInWithGoogle();
             // jwt
-            const { data } = await axios.post("http://localhost:4000/jwt", { email: result?.user.email }, { withCredentials: true })
+            const { data } = await axios.post("https://server-five-coral.vercel.app/jwt", { email: result?.user.email }, { withCredentials: true })
             console.log(data);
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with Google');
@@ -37,7 +36,7 @@ function LoginForm() {
         try {
             setLoading(true);
             const result = await signInWithGithub();
-            const { data } = await axios.post("http://localhost:4000/jwt", { email: result?.user.email }, { withCredentials: true })
+            const { data } = await axios.post("https://server-five-coral.vercel.app/jwt", { email: result?.user.email }, { withCredentials: true })
             console.log(data);
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with Github');
@@ -56,7 +55,7 @@ function LoginForm() {
         try {
             setLoading(true);
             const result = await signIn(email, password);
-            const { data } = await axios.post("http://localhost:4000/jwt", { email: result?.user.email }, { withCredentials: true })
+            const { data } = await axios.post("https://server-five-coral.vercel.app/jwt", { email: result?.user.email }, { withCredentials: true })
             console.log(data);
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with email');
