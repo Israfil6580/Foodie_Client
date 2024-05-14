@@ -5,9 +5,9 @@ import axios from 'axios';
 import toast from "react-hot-toast";
 import { MdOutlineAddCircle } from "react-icons/md";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { ScrollRestoration, useNavigate } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
+import "react-datepicker/dist/react-datepicker.css";
 
 function AddFood() {
     const { user, loading, setLoading } = useContext(AuthContext);
