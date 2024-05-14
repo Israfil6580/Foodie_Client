@@ -11,7 +11,8 @@ const AvailableFood = () => {
     const [filteredFood, setFilteredFood] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [sortBy, setSortBy] = useState("");
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [layoutMode, setLayoutMode] = useState("grid");
 
     useEffect(() => {
         getData();
@@ -24,10 +25,10 @@ const AvailableFood = () => {
             const data = allData.filter(sData => sData.foodStatus === "available");
             setAllFood(data);
             setFilteredFood(data);
-            setLoading(false)
+            setLoading(false);
         } catch (error) {
             console.error("Error fetching data:", error);
-            setLoading(false)
+            setLoading(false);
         }
     };
 
@@ -40,7 +41,7 @@ const AvailableFood = () => {
             const sortedFood = [...filteredFood].sort((a, b) => new Date(a.expireDate) - new Date(b.expireDate));
             setFilteredFood(sortedFood);
         }
-    }, [filteredFood, sortBy]);
+    }, [sortBy]);
 
     const handleSearch = (e) => {
         setSearchQuery(e.target.value);
@@ -55,6 +56,10 @@ const AvailableFood = () => {
         }
     };
 
+    const toggleLayoutMode = () => {
+        setLayoutMode(prevMode => prevMode === "grid" ? "two-column" : "grid");
+    };
+
     if (loading) {
         return <div className='min-h-[70vh] flex justify-center items-center'>
             <span className="loading loading-spinner loading-lg bg-green-400"></span>
@@ -62,13 +67,13 @@ const AvailableFood = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto min-h-screen pb-20 px-2">
+        <div className="max-w-7xl mx-auto min-h-screen pb-20 px-2 overflow-x-hidden">
             <div className="text-center">
                 <motion.h1
                     className="font-title uppercase text-3xl lg:text-4xl font-bold my-10"
-                    initial={{ opacity: 0, scale: 0.9 }} // Initial opacity and scale
-                    animate={{ opacity: 1, scale: 1 }} // Animation to make it visible and scale to 1
-                    transition={{ duration: 0.1 }} // Transition duration
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.1 }}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                 >
@@ -94,10 +99,11 @@ const AvailableFood = () => {
             <div className="flex justify-end items-center mb-8 mt-4">
                 <div>
                     <button onClick={() => handleSort("expireDate")} className="btn btn-secondary mr-2">{sortBy === "expireDate" ? "Sorted by Expire Date" : "Sort by Expire Date"}</button>
+                    <button onClick={toggleLayoutMode} className="btn btn-secondary">{layoutMode === "grid" ? "Change to Two Column" : "Change to Three Column"}</button>
                 </div>
             </div>
             <AnimatePresence>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 gap-y-16">
+                <div className={layoutMode === "grid" ? "grid grid-cols-1 lg:grid-cols-3 gap-6 gap-y-16" : "grid grid-cols-2 gap-6 gap-y-16"}>
                     {filteredFood.map((food, index) => (
                         <motion.div
                             key={food._id}
@@ -205,3 +211,5 @@ const AvailableFood = () => {
 };
 
 export default AvailableFood;
+
+

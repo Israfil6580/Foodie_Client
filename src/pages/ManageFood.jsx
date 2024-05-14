@@ -9,11 +9,16 @@ import toast from "react-hot-toast";
 import { FaUpload } from "react-icons/fa6";
 import { ScrollRestoration } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 const ManageFood = () => {
     const { user, setLoading, loading } = useContext(AuthContext)
     const [MyAddedFood, setMyAddedFood] = useState([])
     const [singleUpdate, setSingleUpdate] = useState([]);
     const [startDate, setStartDate] = useState(null);
+    const handleChange = (date) => {
+        setStartDate(date);
+    };
     const submitPurpose = (id) => {
         axios(`https://server-five-coral.vercel.app/food/${id}`)
             .then(response => {
@@ -312,14 +317,14 @@ const ManageFood = () => {
                                                         transition={{ delay: 0.9 }}
                                                     >
                                                         <label htmlFor="expireDate" className="block font-medium">Expired Date</label>
-                                                        <motion.input
-                                                            type="date"
-                                                            defaultValue={startDate}
-                                                            onChange={(e) => setStartDate(e.target.value)}
+                                                        <DatePicker
                                                             className="block w-full mt-1 p-2 border-gray-300 rounded-md outline-none"
-                                                            style={{ WebkitAppearance: "none" }}
-                                                            whileHover={{ scale: 1.05 }}
-                                                            transition={{ duration: 0.2 }}
+                                                            selected={startDate}
+                                                            onChange={handleChange}
+                                                            dateFormat="dd/MM/yyyy"
+                                                            isClearable
+                                                            showYearDropdown
+                                                            scrollableYearDropdown
                                                         />
                                                     </motion.div>
 

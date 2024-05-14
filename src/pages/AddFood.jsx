@@ -4,10 +4,10 @@ import { AuthContext } from "../provider/AuthProvider";
 import axios from 'axios';
 import toast from "react-hot-toast";
 import { MdOutlineAddCircle } from "react-icons/md";
-// import DatePicker from "react-datepicker";
 import { ScrollRestoration, useNavigate } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
-// import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function AddFood() {
     const { user, loading, setLoading } = useContext(AuthContext);
@@ -20,7 +20,11 @@ function AddFood() {
     const [donatorName, setDonatorName] = useState("");
     const [donatorEmail, setDonatorEmail] = useState("");
     const [donatorPhoto, setDonatorPhoto] = useState("");
-    const [startDate, setStartDate] = useState(new Date().toLocaleDateString());
+    const [startDate, setStartDate] = useState(new Date());
+    const handleChange = (date) => {
+        setStartDate(date);
+    };
+
     const navigate = useNavigate()
     useEffect(() => {
         setLoading(false);
@@ -167,8 +171,6 @@ function AddFood() {
                                 />
                             </motion.div>
 
-
-
                             <motion.div
                                 className="mb-2"
                                 initial={{ opacity: 0, y: -20 }}
@@ -183,14 +185,14 @@ function AddFood() {
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.4 }}
                                 >
-                                    <motion.input
-                                        type="date"
-                                        defaultValue={startDate}
-                                        onChange={(e) => setStartDate(e.target.value)}
+                                    <DatePicker
                                         className="block w-full mt-1 p-2 border-gray-300 rounded-md outline-none"
-                                        style={{ WebkitAppearance: "none" }}
-                                        whileHover={{ scale: 1.05 }}
-                                        transition={{ duration: 0.2 }}
+                                        selected={startDate}
+                                        onChange={handleChange}
+                                        dateFormat="dd/MM/yyyy"
+                                        isClearable
+                                        showYearDropdown
+                                        scrollableYearDropdown
                                     />
                                 </motion.div>
                             </motion.div>

@@ -86,6 +86,10 @@ input[type="number"]::-webkit-outer-spin-button {
   justify-content: center;
   align-items: center;
 }
+.react-datepicker-wrapper,
+.react-datepicker-ignore-onclickoutside {
+  width: 100%;
+}
 
 @media (max-width: 768px) {
   .swiper-slide {

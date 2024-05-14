@@ -22,9 +22,8 @@ function LoginForm() {
             setLoading(true);
             const result = await signInWithGoogle();
             // jwt
-            const { data } = await axios.post("http://localhost:4000/jwt", { email: result?.user.email })
+            const { data } = await axios.post("http://localhost:4000/jwt", { email: result?.user.email }, { withCredentials: true })
             console.log(data);
-
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with Google');
         } catch (error) {
@@ -37,7 +36,9 @@ function LoginForm() {
     const handleGithubSignIn = async () => {
         try {
             setLoading(true);
-            await signInWithGithub();
+            const result = await signInWithGithub();
+            const { data } = await axios.post("http://localhost:4000/jwt", { email: result?.user.email }, { withCredentials: true })
+            console.log(data);
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with Github');
         } catch (error) {
@@ -54,7 +55,9 @@ function LoginForm() {
         const password = form.password.value;
         try {
             setLoading(true);
-            await signIn(email, password);
+            const result = await signIn(email, password);
+            const { data } = await axios.post("http://localhost:4000/jwt", { email: result?.user.email }, { withCredentials: true })
+            console.log(data);
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with email');
 
