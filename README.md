@@ -1,8 +1,26 @@
-# React + Vite
+# Foddie
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Foddie is a web application designed to connect food donors with individuals or organizations in need of food assistance, much like the food delivery platform showcased at the provided link.
 
-Currently, two official plugins are available:
+## Website URL
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[https://foddieapp.netlify.app/](https://foddieapp.netlify.app/)
+
+## Features
+
+- Users can register or log in to the platform using Firebase Authentication, ensuring secure access to features and personal data.
+- The platform features a user-friendly interface where users can create donation requests, browse existing requests, and fulfill them.
+- Donation requests are displayed with important details such as donor name, pickup location, expiration date, request date, and donation amount, providing transparency and facilitating efficient food distribution.
+- Foddie incorporates smooth animations and transitions using the Framer Motion library, enhancing the overall user experience and making the platform visually appealing and engaging to use.
+
+## Technologies Used
+
+- React
+- MongoDB
+- Express
+- Firebase Authentication
+- React Router DOM
+- Tailwind CSS
+- Axios
+- JWT (Try to implemented)
+
