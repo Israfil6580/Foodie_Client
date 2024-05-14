@@ -10,7 +10,6 @@ html {
   font-family: "Inter", sans-serif;
   scroll-behavior: smooth;
   background: #ccf7db;
-  overflow-x: hidden;
 }
 .font-title {
   font-family: "Neue Haas Grotesk Display Pro", sans-serif;

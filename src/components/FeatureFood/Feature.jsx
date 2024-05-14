@@ -5,11 +5,9 @@ import { CiCalendar } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useInView } from "react-intersection-observer";
 
 const Feature = () => {
     const [allFood, setAllFood] = useState([]);
-    const [ref, inView] = useInView({ triggerOnce: true, threshold: 0 });
 
     useEffect(() => {
         getData();
@@ -27,10 +25,23 @@ const Feature = () => {
         }
     };
 
+    // State to track hover and click states for each card
+    const [hoverIndex, setHoverIndex] = useState(null);
+    const [clickIndex, setClickIndex] = useState(null);
+
     return (
         <div className="max-w-7xl mx-auto px-2">
             <div className="text-center">
-                <h1 className="font-title uppercase text-3xl lg:text-4xl font-bold">Featured Foods</h1>
+                <motion.h1
+                    className="font-title uppercase text-3xl lg:text-4xl font-bold"
+                    initial={{ opacity: 0, scale: 0.9 }} // Initial opacity and scale
+                    animate={{ opacity: 1, scale: 1 }} // Animation to make it visible and scale to 1
+                    transition={{ duration: 0.1 }} // Transition duration
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                >
+                    Featured Foods
+                </motion.h1>
             </div>
             <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 mt-10">
                 {allFood.slice(0, 6).map((food, index) => (
@@ -38,9 +49,13 @@ const Feature = () => {
                         key={food._id}
                         className="card card-compact w-auto bg-green-100 pb-2"
                         initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                        animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                        transition={{ duration: .6, delay: index * 0.1, ease: "easeOut" }}
-                        ref={ref}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ duration: 0.1 }} // Set transition time to 0.2 seconds
+                        whileHover={{ scale: 1.05 }} // Scale increases slightly on hover
+                        whileTap={{ scale: 1 }} // Scale decreases slightly on click
+                        onHoverStart={() => setHoverIndex(index)}
+                        onHoverEnd={() => setHoverIndex(null)}
+                        onTap={() => setClickIndex(index)}
                     >
                         <figure>
                             <motion.img
@@ -49,7 +64,7 @@ const Feature = () => {
                                 alt="Shoes"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                transition={{ duration: .6, delay: index * 0.1 + 0.2, ease: "easeOut" }}
+                                transition={{ duration: 0 }}
                             />
                         </figure>
                         <div className="card-body">

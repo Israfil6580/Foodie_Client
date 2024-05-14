@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import logo from "/images/logo.svg"
+import logo from "/images/logo.svg";
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from "../../provider/AuthProvider";
 import { CiLogin } from "react-icons/ci";
@@ -7,14 +7,15 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-    const [loadingForLogout, setLoadingForLogout] = useState(null)
+    const [loadingForLogout, setLoadingForLogout] = useState(null);
+
     const handleLogout = () => {
-        setLoadingForLogout(true)
+        setLoadingForLogout(true);
         setTimeout(() => {
             logOut();
             toast.success("Logout successfully");
-            setLoadingForLogout(false)
-        }, 1000)
+            setLoadingForLogout(false);
+        }, 1000);
     };
 
     const navlinks = (
@@ -28,7 +29,7 @@ const Navbar = () => {
     );
 
     return (
-        <div className="sticky top-2 z-50">
+        <div className="sticky top-0 z-50">
             <div className="navbar container mx-auto bg-green-100 rounded-3xl p-0 px-2">
                 <div className="navbar-start">
                     <div className="dropdown relative z-50">
@@ -61,7 +62,6 @@ const Navbar = () => {
                                             alt={user.photoURL}
                                             className="rounded-full h-10 w-10 object-cover"
                                             src={user?.photoURL || ""}
-
                                         />
                                         <div>
                                             <p className="font-medium">{user.displayName}</p>

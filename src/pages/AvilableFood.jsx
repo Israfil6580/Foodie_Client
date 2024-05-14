@@ -1,10 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useContext } from "react";
-import { Link, ScrollRestoration } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { CiCalendar, CiLocationOn } from "react-icons/ci";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import axios from "axios";
-import { AuthContext } from "../provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 
 const AvailableFood = () => {
@@ -12,7 +11,6 @@ const AvailableFood = () => {
     const [filteredFood, setFilteredFood] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [sortBy, setSortBy] = useState("");
-    const { customLoading } = useContext(AuthContext)
 
     useEffect(() => {
         getData();
@@ -39,7 +37,7 @@ const AvailableFood = () => {
             const sortedFood = [...filteredFood].sort((a, b) => new Date(a.expireDate) - new Date(b.expireDate));
             setFilteredFood(sortedFood);
         }
-    }, [sortBy]);
+    }, [filteredFood, sortBy]);
 
     const handleSearch = (e) => {
         setSearchQuery(e.target.value);
@@ -54,24 +52,35 @@ const AvailableFood = () => {
         }
     };
 
-    if (customLoading) {
-        return (
-            <div className='min-h-[70vh] flex justify-center items-center'>
-                <span className="loading loading-spinner loading-lg bg-green-400"></span>
-            </div>
-        )
-    }
-
     return (
         <div className="max-w-7xl mx-auto min-h-screen pb-20 px-2">
             <div className="text-center">
-                <h1 className="font-title uppercase text-3xl lg:text-4xl font-bold py-10">Available Foods</h1>
+                <motion.h1
+                    className="font-title uppercase text-3xl lg:text-4xl font-bold my-10"
+                    initial={{ opacity: 0, scale: 0.9 }} // Initial opacity and scale
+                    animate={{ opacity: 1, scale: 1 }} // Animation to make it visible and scale to 1
+                    transition={{ duration: 0.1 }} // Transition duration
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                >
+                    Available Foods
+                </motion.h1>
             </div>
             <Helmet>
                 <title>Foddie | Available_Food</title>
             </Helmet>
             <div className="text-center">
-                <input type="text" placeholder="Search by food name" value={searchQuery} onChange={handleSearch} className="p-2 border-gray-300 rounded-md lg:w-1/2 w-[96%] mx-[2%] outline-none" />
+                <motion.input
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    className="w-[96%] mx-[2%] lg:w-6/12 lg:mx-auto px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 border rounded-lg outline-none"
+                    type="email"
+                    name="email"
+                    placeholder="Search by food name"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                />
             </div>
             <div className="flex justify-end items-center mb-8 mt-4">
                 <div>
@@ -83,11 +92,12 @@ const AvailableFood = () => {
                     {filteredFood.map((food, index) => (
                         <motion.div
                             key={food._id}
-                            className="card card-compact w-auto bg-green-100"
-                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                            className="card card-compact w-auto bg-green-100 pb-2"
+                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 30, scale: 0.9 }}
-                            transition={{ duration: 0.5, delay: 0 }}
+                            transition={{ duration: 0.1 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 1 }}
                         >
                             <figure>
                                 <motion.img
@@ -178,7 +188,6 @@ const AvailableFood = () => {
                             </div>
                         </motion.div>
                     ))}
-                    <ScrollRestoration />
                 </div>
             </AnimatePresence>
         </div>
