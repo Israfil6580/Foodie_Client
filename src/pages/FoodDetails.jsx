@@ -65,7 +65,7 @@ const FoodDetails = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-7xl px-2 mx-auto py-20 flex gap-6 lg:flex-row flex-col-reverse lg:items-start"
+            className="max-w-7xl px-2 mx-auto md:py-20 py-5 flex gap-6 lg:flex-row flex-col-reverse lg:items-start"
         >
             <Helmet>
                 <title>Foddie | Details_Food</title>
@@ -94,7 +94,7 @@ const FoodDetails = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="lg:w-8/12 bg-green-100 rounded-md md:p-6 p-2"
+                className="lg:w-8/12 bg-green-100 rounded-md md:p-6 py-6 px-2"
             >
                 <div className="flex lg:flex-row flex-col gap-5">
                     <div className="lg:w-8/12">

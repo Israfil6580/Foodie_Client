@@ -96,8 +96,8 @@ const AvailableFood = () => {
                     transition={{ duration: 0.2 }}
                 />
             </div>
-            <div className="flex justify-end items-center mb-8 mt-4">
-                <div>
+            <div className="flex justify-center items-center mb-8 mt-4 w-full">
+                <div className="md:w-full flex md:justify-between md:flex-row flex-col items-center gap-2">
                     <button onClick={() => handleSort("expireDate")} className="btn btn-secondary mr-2">{sortBy === "expireDate" ? "Sorted by Expire Date" : "Sort by Expire Date"}</button>
                     <button onClick={toggleLayoutMode} className="btn btn-secondary">{layoutMode === "grid" ? "Change to Two Column" : "Change to Three Column"}</button>
                 </div>
