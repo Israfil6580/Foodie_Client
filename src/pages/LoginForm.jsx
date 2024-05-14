@@ -8,21 +8,16 @@ import { AuthContext } from "../provider/AuthProvider";
 import { CiLogin } from "react-icons/ci";
 import toast from 'react-hot-toast';
 import { Helmet } from "react-helmet-async";
-import axios from "axios";
 
 function LoginForm() {
     const { seeOrNot, see, signIn, signInWithGoogle, signInWithGithub } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const location = useLocation()
     const navigate = useNavigate()
-
     const handleGoogleSignIn = async () => {
         try {
             setLoading(true);
-            const result = await signInWithGoogle();
-            // jwt
-            const { data } = await axios.post("https://server-five-coral.vercel.app/jwt", { email: result?.user.email }, { withCredentials: true })
-            console.log(data);
+            await signInWithGoogle();
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with Google');
         } catch (error) {
@@ -35,9 +30,7 @@ function LoginForm() {
     const handleGithubSignIn = async () => {
         try {
             setLoading(true);
-            const result = await signInWithGithub();
-            const { data } = await axios.post("https://server-five-coral.vercel.app/jwt", { email: result?.user.email }, { withCredentials: true })
-            console.log(data);
+            await signInWithGithub();
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with Github');
         } catch (error) {
@@ -54,9 +47,7 @@ function LoginForm() {
         const password = form.password.value;
         try {
             setLoading(true);
-            const result = await signIn(email, password);
-            const { data } = await axios.post("https://server-five-coral.vercel.app/jwt", { email: result?.user.email }, { withCredentials: true })
-            console.log(data);
+            await signIn(email, password);
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with email');
 
