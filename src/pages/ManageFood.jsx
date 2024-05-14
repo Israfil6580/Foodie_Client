@@ -28,9 +28,8 @@ const ManageFood = () => {
         axios(`https://server-five-coral.vercel.app/food/${id}`)
             .then(response => {
                 if (response?.data) {
-                    setSingleUpdate(response.data);
+                    setSingleUpdate(...response.data);
                 }
-                getData();
             })
             .catch(error => {
                 console.error("Error fetching single purpose:", error);
@@ -38,13 +37,12 @@ const ManageFood = () => {
     };
 
     useEffect(() => {
-        if (singleUpdate.expireDate) {
+        if (singleUpdate?.expireDate) {
             setStartDate(new Date(singleUpdate.expireDate));
         } else {
             setStartDate('');
         }
     }, [singleUpdate]);
-
 
     const handleUpdateFood = async (e) => {
         e.preventDefault();
@@ -68,6 +66,7 @@ const ManageFood = () => {
                         document.getElementById('my_modal_3').close();
                         toast.success("Update successful");
                         getData();
+                        form.reset();
                     } else {
                         setLoading(false)
                         document.getElementById('my_modal_3').close();
@@ -80,8 +79,8 @@ const ManageFood = () => {
                 toast.error("An error occurred while updating");
                 setLoading(false); // Hide loading indicator in case of error
             });
-
     };
+
 
     const handleDelete = (id) => {
         Swal.fire({

@@ -47,7 +47,16 @@ const MyRequestFood = () => {
             </Helmet>
             <div className="flex justify-center flex-col items-center px-2">
                 <div className="text-center">
-                    <h1 className="font-title uppercase text-3xl lg:text-4xl font-bold py-10">my&nbsp;&nbsp;food&nbsp;&nbsp;request</h1>
+                    <motion.h1
+                        className="font-title uppercase text-3xl lg:text-4xl font-bold my-10"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.1 }}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                    >
+                        my&nbsp;&nbsp;food&nbsp;&nbsp;request
+                    </motion.h1>
                 </div>
                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 pb-20">
                     {allMyRequest.map(req => {
@@ -56,12 +65,12 @@ const MyRequestFood = () => {
                             <motion.div
                                 key={_id}
                                 className="card w-auto bg-green-100"
-
-                                whileTap={{ scale: 0.95 }}
                                 initial={{ opacity: 0, scale: 0.5 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.5 }}
-                                transition={{ duration: 0.3 }}
+                                transition={{ duration: 0.1 }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 1 }}
                             >
                                 <div className="card-body">
                                     <div>

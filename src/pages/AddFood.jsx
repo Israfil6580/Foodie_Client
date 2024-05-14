@@ -77,7 +77,16 @@ function AddFood() {
                     transition={{ delay: 0.2 }}
                 >
                     <div className="text-center">
-                        <h1 className="font-title uppercase text-2xl lg:text-3xl font-bold pb-6">Add Food</h1>
+                        <motion.h1
+                            className="font-title uppercase text-3xl lg:text-4xl font-bold mb-8"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.1 }}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                        >
+                            Add Food
+                        </motion.h1>
                     </div>
 
                     <form onSubmit={handleAddFood}>
