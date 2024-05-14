@@ -8,16 +8,23 @@ import { AuthContext } from "../provider/AuthProvider";
 import { CiLogin } from "react-icons/ci";
 import toast from 'react-hot-toast';
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
 
 function LoginForm() {
     const { seeOrNot, see, signIn, signInWithGoogle, signInWithGithub } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const location = useLocation()
     const navigate = useNavigate()
+
+
     const handleGoogleSignIn = async () => {
         try {
             setLoading(true);
-            await signInWithGoogle();
+            const result = await signInWithGoogle();
+            // jwt
+            const { data } = await axios.post("http://localhost:4000/jwt", { email: result?.user.email })
+            console.log(data);
+
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with Google');
         } catch (error) {

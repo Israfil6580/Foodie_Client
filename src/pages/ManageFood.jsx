@@ -10,29 +10,10 @@ import { FaUpload } from "react-icons/fa6";
 import { ScrollRestoration } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 const ManageFood = () => {
-    const { user } = useContext(AuthContext)
+    const { user, setLoading, loading } = useContext(AuthContext)
     const [MyAddedFood, setMyAddedFood] = useState([])
     const [singleUpdate, setSingleUpdate] = useState([]);
     const [startDate, setStartDate] = useState(null);
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        if (user) {
-            getData()
-        }
-    }, [user]);
-
-    const getData = async () => {
-        try {
-            const response = await axios("https://server-five-coral.vercel.app/food");
-            const allData = response.data;
-            const data = allData.filter(sData => sData.donatorEmail === user?.email);
-            setMyAddedFood(data);
-            setLoading(false);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
     const submitPurpose = (id) => {
         axios(`https://server-five-coral.vercel.app/food/${id}`)
             .then(response => {
@@ -66,7 +47,6 @@ const ManageFood = () => {
         axios.put(`https://server-five-coral.vercel.app/food/${singleUpdate._id}`, addedInfo)
             .then(response => {
                 setTimeout(() => {
-                    setLoading(false);
                     if (response.data.modifiedCount > 0) {
                         setLoading(false);
                         document.getElementById('my_modal_3').close();
@@ -88,6 +68,8 @@ const ManageFood = () => {
 
 
     };
+
+
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -132,11 +114,23 @@ const ManageFood = () => {
         });
     }
 
-    if (loading) {
-        return <div className='min-h-[70vh] flex justify-center items-center'>
-            <span className="loading loading-spinner loading-lg bg-green-400"></span>
-        </div>
-    }
+    useEffect(() => {
+        if (user) {
+            getData()
+        }
+    }, [user]);
+
+    const getData = async () => {
+        try {
+            const response = await axios("https://server-five-coral.vercel.app/food");
+            const allData = response.data;
+            const data = allData.filter(sData => sData.donatorEmail === user?.email);
+            setMyAddedFood(data);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
     return (
         <motion.div
             className="max-w-7xl min-h-[60vh] mx-auto"
@@ -148,7 +142,7 @@ const ManageFood = () => {
             <Helmet>
                 <title>Foddie | Manage_Food</title>
             </Helmet>
-            <div className="overflow-x-auto py-10">
+            <div className="overflow-x-auto overflow-y-hidden py-10">
                 <motion.table
                     className="table"
                     initial={{ opacity: 0, y: 20 }}

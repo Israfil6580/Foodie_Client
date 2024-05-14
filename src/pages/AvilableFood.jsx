@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, ScrollRestoration } from "react-router-dom";
 import { CiCalendar, CiLocationOn } from "react-icons/ci";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import axios from "axios";
@@ -199,6 +199,7 @@ const AvailableFood = () => {
                     ))}
                 </div>
             </AnimatePresence>
+            <ScrollRestoration />
         </div>
     );
 };
