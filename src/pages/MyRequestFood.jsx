@@ -7,8 +7,9 @@ import { ScrollRestoration } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 const MyRequestFood = () => {
-    const { user, setLoading } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const [allMyRequest, setAllMyRequest] = useState([])
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
         if (user) {
             getData()
@@ -21,13 +22,18 @@ const MyRequestFood = () => {
             const response = await axios("https://server-five-coral.vercel.app/food");
             const allData = response.data;
             const data = allData.filter(sData => sData.userEmail === user?.email);
-            setLoading(false);
             setAllMyRequest(data);
+            setLoading(false);
         } catch (error) {
             console.error("Error fetching data:", error);
             setLoading(false);
         }
     };
+    if (loading) {
+        return <div className='min-h-[70vh] flex justify-center items-center'>
+            <span className="loading loading-spinner loading-lg bg-green-400"></span>
+        </div>
+    }
     return (
         <motion.div
             className="max-w-7xl mx-auto min-h-[70vh]"

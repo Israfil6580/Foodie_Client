@@ -11,6 +11,7 @@ const AvailableFood = () => {
     const [filteredFood, setFilteredFood] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [sortBy, setSortBy] = useState("");
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         getData();
@@ -23,8 +24,10 @@ const AvailableFood = () => {
             const data = allData.filter(sData => sData.foodStatus === "available");
             setAllFood(data);
             setFilteredFood(data);
+            setLoading(false)
         } catch (error) {
             console.error("Error fetching data:", error);
+            setLoading(false)
         }
     };
 
@@ -51,6 +54,12 @@ const AvailableFood = () => {
             setSortBy(option);
         }
     };
+
+    if (loading) {
+        return <div className='min-h-[70vh] flex justify-center items-center'>
+            <span className="loading loading-spinner loading-lg bg-green-400"></span>
+        </div>
+    }
 
     return (
         <div className="max-w-7xl mx-auto min-h-screen pb-20 px-2">
