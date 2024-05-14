@@ -59,7 +59,10 @@ const Testimonial = () => {
             >
                 {testimonialsData.map((testimonial, index) => (
                     <SwiperSlide key={index} className="w-full">
-                        <motion.div variants={slideVariants} whileHover={{ scale: 1.05 }}>
+                        <motion.div
+                            variants={slideVariants}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.9 }}>
                             <div className="container mx-auto w-full">
                                 <div className="flex flex-col items-center w-full p-6 space-y-8 rounded-md lg:h-full lg:p-8 bg-green-100 text-gray-800">
                                     <img src={testimonial.imgSrc} alt="" className="w-20 h-20 object-cover rounded-full bg-gray-500" />

@@ -38,7 +38,16 @@ const Faq = () => {
     return (
         <div className="max-w-7xl mx-auto px-2">
             <div className="text-center">
-                <h1 className="font-title uppercase text-3xl lg:text-4xl font-bold pb-10">Frequently Asked Questions</h1>
+                <motion.h1
+                    className="font-title uppercase text-3xl lg:text-4xl font-bold mb-10"
+                    initial={{ opacity: 0, scale: 0.9 }} // Initial opacity and scale
+                    animate={{ opacity: 1, scale: 1 }} // Animation to make it visible and scale to 1
+                    transition={{ duration: 0.1 }} // Transition duration
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                >
+                    Frequently Asked Questions
+                </motion.h1>
             </div>
             <div className="flex flex-col gap-2 pb-24">
                 {faqItems.map((item, index) => (
@@ -54,6 +63,8 @@ const Faq = () => {
                                     exit={{ opacity: 0, height: 0 }}
                                     transition={{ duration: 0.3 }}
                                     className="collapse-content"
+                                    whileHover={{ scale: 1 }}
+                                    whileTap={{ scale: 0.9 }}
                                 >
                                     <p>{item.answer}</p>
                                 </motion.div>
