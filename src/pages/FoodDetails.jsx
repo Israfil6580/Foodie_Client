@@ -11,7 +11,7 @@ import { Helmet } from "react-helmet-async";
 const FoodDetails = () => {
     const { user, setLoading, loading } = useContext(AuthContext);
     const { id } = useParams();
-    const [detailsData, setDetailsData] = useState([]);
+    const [detailsData, setDetailsData] = useState({});
     const navigate = useNavigate();
     const dialogRef = useRef(null);
 

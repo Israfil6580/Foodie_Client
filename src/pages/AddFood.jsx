@@ -4,10 +4,10 @@ import { AuthContext } from "../provider/AuthProvider";
 import axios from 'axios';
 import toast from "react-hot-toast";
 import { MdOutlineAddCircle } from "react-icons/md";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import { ScrollRestoration, useNavigate } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 
 function AddFood() {
     const { user, loading, setLoading } = useContext(AuthContext);
@@ -94,7 +94,6 @@ function AddFood() {
                                 </label>
                                 <motion.input
                                     type="text"
-                                    id="foodName"
                                     onChange={(e) => setFoodName(e.target.value)}
                                     placeholder="Enter food name"
                                     className="block w-full mt-1 p-2 border-gray-300 rounded-md outline-none"
@@ -116,7 +115,6 @@ function AddFood() {
                                 </label>
                                 <motion.input
                                     type="url"
-                                    id="foodImage"
                                     onChange={(e) => setFoodImage(e.target.value)}
                                     placeholder="Enter food image URL"
                                     className="block w-full mt-1 p-2 border-gray-300 rounded-md outline-none"
@@ -138,7 +136,6 @@ function AddFood() {
                                 </label>
                                 <motion.input
                                     type="number"
-                                    id="foodQuantity"
                                     onChange={(e) => setFoodQuantity(e.target.value)}
                                     placeholder="Enter food quantity"
                                     className="block w-full mt-1 p-2 border-gray-300 rounded-md outline-none"
@@ -160,7 +157,6 @@ function AddFood() {
                                 </label>
                                 <motion.input
                                     type="text"
-                                    id="pickupLocation"
                                     onChange={(e) => setPickupLocation(e.target.value)}
                                     placeholder="Enter pickup location"
                                     className="block w-full mt-1 p-2 border-gray-300 rounded-md outline-none"
@@ -187,10 +183,14 @@ function AddFood() {
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.4 }}
                                 >
-                                    <DatePicker
-                                        className="p-2 rounded-md w-[414px] outline-none"
-                                        selected={startDate}
-                                        onChange={date => setStartDate(date.toLocaleDateString())}
+                                    <motion.input
+                                        type="date"
+                                        defaultValue={startDate}
+                                        onChange={(e) => setStartDate(e.target.value)}
+                                        className="block w-full mt-1 p-2 border-gray-300 rounded-md outline-none"
+                                        style={{ WebkitAppearance: "none" }}
+                                        whileHover={{ scale: 1.05 }}
+                                        transition={{ duration: 0.2 }}
                                     />
                                 </motion.div>
                             </motion.div>
@@ -206,7 +206,6 @@ function AddFood() {
                                     Additional Notes
                                 </label>
                                 <motion.textarea
-                                    id="additionalNotes"
                                     onChange={(e) => setAdditionalNotes(e.target.value)}
                                     placeholder="Enter additional notes"
                                     className="block w-full mt-1 p-2 border-gray-300 rounded-md outline-none"
@@ -228,7 +227,6 @@ function AddFood() {
                                 </label>
                                 <motion.input
                                     type="text"
-                                    id="donatorName"
                                     defaultValue={donatorName}
                                     onChange={(e) => setDonatorName(e.target.value)}
                                     placeholder="Enter donator name"
@@ -252,7 +250,6 @@ function AddFood() {
                                 </label>
                                 <motion.input
                                     type="email"
-                                    id="donatorEmail"
                                     defaultValue={donatorEmail}
                                     onChange={(e) => setDonatorEmail(e.target.value)}
                                     placeholder="Enter donator email"
@@ -273,11 +270,10 @@ function AddFood() {
                                 <label htmlFor="donatorPhoto" className="block font-medium">Donator Photo (URL)</label>
                                 <motion.input
                                     type="text"
-                                    id="donatorPhoto"
                                     defaultValue={donatorPhoto}
                                     onChange={(e) => setDonatorPhoto(e.target.value)}
                                     placeholder="Enter donator photo URL"
-                                    className="block w-full mt-1 p-2 border-gray-300 rounded-md"
+                                    className="block w-full mt-1 p-2 border-gray-300 rounded-md outline-none"
                                     required
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
@@ -293,7 +289,7 @@ function AddFood() {
 
                                 <div className="mb-2">
                                     <label htmlFor="foodStatus" className="block font-medium">Food Status</label>
-                                    <select id="foodStatus" onChange={(e) => setFoodStatus(e.target.value)} className="block w-full mt-1 p-2 border-gray-300 rounded-md" required>
+                                    <select onChange={(e) => setFoodStatus(e.target.value)} className="block w-full mt-1 p-2 border-gray-300 rounded-md" required>
                                         <option value="available">Available</option>
                                     </select>
                                 </div>
@@ -320,6 +316,7 @@ function AddFood() {
                 </motion.div>
             </motion.div>
         </motion.div>
+
     );
 }
 

@@ -1,17 +1,14 @@
 import { motion } from "framer-motion";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import Swal from 'sweetalert2'
 import toast from "react-hot-toast";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { FaUpload } from "react-icons/fa6";
 import { ScrollRestoration } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
 const ManageFood = () => {
     const { user, setLoading, loading } = useContext(AuthContext)
     const [MyAddedFood, setMyAddedFood] = useState([])
@@ -26,12 +23,11 @@ const ManageFood = () => {
     }
     useEffect(() => {
         if (singleUpdate.expireDate) {
-            setStartDate(new Date(singleUpdate.expireDate).toLocaleDateString());
+            setStartDate(new Date(singleUpdate.expireDate));
         } else {
-            setStartDate(null);
+            setStartDate('');
         }
     }, [singleUpdate]);
-
 
 
     const handleUpdateFood = async (e) => {
@@ -73,8 +69,6 @@ const ManageFood = () => {
 
 
     };
-
-
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -317,10 +311,14 @@ const ManageFood = () => {
                                                         transition={{ delay: 0.9 }}
                                                     >
                                                         <label htmlFor="expireDate" className="block font-medium">Expired Date</label>
-                                                        <DatePicker
-                                                            className="p-2 rounded-md lg:w-[414px]"
-                                                            selected={startDate}
-                                                            onChange={date => setStartDate(date.toLocaleDateString())}
+                                                        <motion.input
+                                                            type="date"
+                                                            defaultValue={startDate}
+                                                            onChange={(e) => setStartDate(e.target.value)}
+                                                            className="block w-full mt-1 p-2 border-gray-300 rounded-md outline-none"
+                                                            style={{ WebkitAppearance: "none" }}
+                                                            whileHover={{ scale: 1.05 }}
+                                                            transition={{ duration: 0.2 }}
                                                         />
                                                     </motion.div>
 
@@ -450,8 +448,8 @@ const ManageFood = () => {
                     </motion.tbody>
                 </motion.table>
                 <ScrollRestoration />
-            </div>
-        </motion.div>
+            </div >
+        </motion.div >
     );
 };
 

@@ -39,7 +39,7 @@ const Testimonial = () => {
         <motion.div className="mb-20 overflow-x-auto" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
             <div className="text-center">
                 <motion.h1
-                    className="font-title uppercase text-3xl lg:text-4xl font-bold mb-12"
+                    className="font-title uppercase text-3xl lg:text-4xl font-bold mb-12 inline-block"
                     initial={{ opacity: 0, scale: 0.9 }} // Initial opacity and scale
                     animate={{ opacity: 1, scale: 1 }} // Animation to make it visible and scale to 1
                     transition={{ duration: 0.1 }} // Transition duration
@@ -50,8 +50,8 @@ const Testimonial = () => {
                 </motion.h1>
             </div>
             <Swiper
-                slidesPerView={2}
-                centeredSlides={false}
+                slidesPerView={1}
+                centeredSlides={true}
                 spaceBetween={30}
                 autoplay={{ delay: 3200, disableOnInteraction: false }}
                 modules={[Autoplay]}
