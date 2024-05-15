@@ -16,11 +16,8 @@ Foddie is a web application designed to connect food donors with individuals or 
 ## Technologies Used
 
 - React
-- MongoDB
-- Express
 - Firebase Authentication
 - React Router DOM
 - Tailwind CSS
 - Axios
-- JWT (Try to implemented)
 
