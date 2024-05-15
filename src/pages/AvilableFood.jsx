@@ -20,9 +20,9 @@ const AvailableFood = () => {
 
     const getData = async () => {
         try {
-            const response = await axios("https://server-five-coral.vercel.app/food");
-            const allData = response.data;
-            const data = allData.filter(sData => sData.foodStatus === "available");
+            const status = 'available'
+            const response = await axios(`https://server-five-coral.vercel.app/available-foods/${status}`);
+            const data = response.data;
             setAllFood(data);
             setFilteredFood(data);
             setLoading(false);

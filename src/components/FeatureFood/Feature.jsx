@@ -15,9 +15,9 @@ const Feature = () => {
 
     const getData = async () => {
         try {
-            const response = await axios("https://server-five-coral.vercel.app/food");
-            const allData = response.data;
-            const data = allData.filter(sData => sData.foodStatus === "available");
+            const status = 'available'
+            const response = await axios(`https://server-five-coral.vercel.app/available-foods/${status}`);
+            const data = response.data;
             const sortedQuantity = [...data].sort((b, a) => (a.foodQuantity) - (b.foodQuantity));
             setAllFood(sortedQuantity);
         } catch (error) {

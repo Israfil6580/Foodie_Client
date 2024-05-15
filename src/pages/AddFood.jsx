@@ -300,7 +300,7 @@ function AddFood() {
 
                                 <div className="mb-2">
                                     <label htmlFor="foodStatus" className="block font-medium">Food Status</label>
-                                    <select onChange={(e) => setFoodStatus(e.target.value)} className="block w-full mt-1 p-2 border-gray-300 rounded-md" required>
+                                    <select onChange={(e) => setFoodStatus(e.target.value)} className="block w-full mt-1 p-2 border-gray-300 rounded-md outline-none" required>
                                         <option value="available">Available</option>
                                     </select>
                                 </div>

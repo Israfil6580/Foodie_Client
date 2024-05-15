@@ -30,11 +30,11 @@ const FoodDetails = () => {
         const requestDate = e.target.requestDate.value;
         const additionalNotes = e.target.notes.value;
         const donationAmount = e.target.amount.value;
-        const foodStatus = "Requested";
+        const foodStatus = "requested";
         const addedInfo = { requestDate, userEmail, additionalNotes, foodStatus, donationAmount };
         setLoading(true)
         try {
-            const { data } = await axios.patch(`https://server-five-coral.vercel.app/food/${id}`, addedInfo);
+            await axios.patch(`https://server-five-coral.vercel.app/food/${id}`, addedInfo);
             setTimeout(() => {
                 setLoading(false);
                 toast.success("Food requested successfully");
@@ -183,7 +183,7 @@ const FoodDetails = () => {
 
                                             <div className="flex items-center gap-2">
                                                 <label className="w-28 text-sm font-bold font-title" htmlFor="requestDate">Request Date</label>
-                                                <input type="text" name="requestDate" defaultValue={new Date().toLocaleDateString()} className="input input-bordered input-sm font-bold font-title flex-grow" disabled />
+                                                <input type="text" name="requestDate" defaultValue={new Date().toISOString()} className="input input-bordered input-sm font-bold font-title flex-grow" disabled />
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <label className="w-28 text-sm font-bold font-title" htmlFor="foodEmail">Pickup Location</label>

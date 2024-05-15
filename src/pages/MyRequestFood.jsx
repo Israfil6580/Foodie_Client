@@ -19,9 +19,8 @@ const MyRequestFood = () => {
     const getData = async () => {
         setLoading(true)
         try {
-            const response = await axios("https://server-five-coral.vercel.app/food");
-            const allData = response.data;
-            const data = allData.filter(sData => sData.userEmail === user?.email);
+            const response = await axios(`https://server-five-coral.vercel.app/requested-foods/${user?.email}`);
+            const data = response.data;
             setAllMyRequest(data);
             setLoading(false);
         } catch (error) {

@@ -38,9 +38,11 @@ const Banner = () => {
 
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: .6, delay: 1.1, ease: "easeOut" }}
                 className="flex justify-center mt-10"
+                animate={{ opacity: 1, scale: 0.9 }}
+                transition={{ duration: 0.1 }}
+                whileHover={{ scale: 1 }}
+                whileTap={{ scale: 0.9 }}
             >
                 <motion.img
                     className="object-cover w-full h-96 rounded-xl lg:w-4/5"

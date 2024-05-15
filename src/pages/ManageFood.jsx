@@ -127,9 +127,8 @@ const ManageFood = () => {
 
     const getData = async () => {
         try {
-            const response = await axios("https://server-five-coral.vercel.app/food");
-            const allData = response.data;
-            const data = allData.filter(sData => sData.donatorEmail === user?.email);
+            const response = await axios(`https://server-five-coral.vercel.app/manage-foods/${user?.email}`);
+            const data = response.data;
             setMyAddedFood(data);
             setLoading(false);
         } catch (error) {
@@ -138,7 +137,7 @@ const ManageFood = () => {
     };
     return (
         <motion.div
-            className="max-w-7xl min-h-[60vh] mx-auto"
+            className="max-w-7xl min-h-[65vh] mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
