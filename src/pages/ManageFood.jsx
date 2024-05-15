@@ -127,7 +127,9 @@ const ManageFood = () => {
 
     const getData = async () => {
         try {
-            const response = await axios(`https://server-five-coral.vercel.app/manage-foods/${user?.email}`);
+            const response = await axios(`https://server-five-coral.vercel.app/manage-foods/${user?.email}`, {
+                withCredentials: true
+            });
             const data = response.data;
             setMyAddedFood(data);
             setLoading(false);

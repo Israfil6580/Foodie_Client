@@ -45,6 +45,9 @@ const Banner = () => {
                 whileTap={{ scale: 0.9 }}
             >
                 <motion.img
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: .6, delay: 0.7, ease: "easeOut" }}
                     className="object-cover w-full h-96 rounded-xl lg:w-4/5"
                     src={banner}
                     alt="App Image"

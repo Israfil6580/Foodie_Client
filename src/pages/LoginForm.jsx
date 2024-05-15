@@ -8,6 +8,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import { CiLogin } from "react-icons/ci";
 import toast from 'react-hot-toast';
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
 
 function LoginForm() {
     const { seeOrNot, see, signIn, signInWithGoogle, signInWithGithub } = useContext(AuthContext);
@@ -17,7 +18,9 @@ function LoginForm() {
     const handleGoogleSignIn = async () => {
         try {
             setLoading(true);
-            await signInWithGoogle();
+            const result = await signInWithGoogle();
+            const { data } = await axios.post('https://server-five-coral.vercel.app/jwt', { email: result?.user?.email }, { withCredentials: true })
+            console.log(data);
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with Google');
         } catch (error) {
@@ -30,7 +33,9 @@ function LoginForm() {
     const handleGithubSignIn = async () => {
         try {
             setLoading(true);
-            await signInWithGithub();
+            const result = await signInWithGithub();
+            const { data } = await axios.post('https://server-five-coral.vercel.app/jwt', { email: result?.user?.email }, { withCredentials: true })
+            console.log(data);
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with Github');
         } catch (error) {
@@ -47,7 +52,9 @@ function LoginForm() {
         const password = form.password.value;
         try {
             setLoading(true);
-            await signIn(email, password);
+            const result = await signIn(email, password);
+            const { data } = await axios.post('https://server-five-coral.vercel.app/jwt', { email: result?.user?.email }, { withCredentials: true })
+            console.log(data);
             navigate(location.state || "/", { replace: true })
             toast.success('Sign in successful with email');
 

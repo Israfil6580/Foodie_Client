@@ -19,7 +19,7 @@ const MyRequestFood = () => {
     const getData = async () => {
         setLoading(true)
         try {
-            const response = await axios(`https://server-five-coral.vercel.app/requested-foods/${user?.email}`);
+            const response = await axios(`https://server-five-coral.vercel.app/requested-foods/${user?.email}`, { withCredentials: true });
             const data = response.data;
             setAllMyRequest(data);
             setLoading(false);

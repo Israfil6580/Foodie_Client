@@ -29,7 +29,7 @@ const Navbar = () => {
     );
 
     return (
-        <div className="sticky top-0 z-50">
+        <div className="sticky top-1 z-50">
             <div className="navbar container mx-auto bg-green-100 rounded-3xl p-0 px-2">
                 <div className="navbar-start">
                     <div className="dropdown relative z-50">

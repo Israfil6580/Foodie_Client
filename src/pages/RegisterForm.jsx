@@ -6,6 +6,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import { CiLogin } from "react-icons/ci";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
 
 function RegisterForm() {
     const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
@@ -27,6 +28,8 @@ function RegisterForm() {
             await updateUserProfile(name, photo);
             // Optimistic UI Update
             setUser({ ...result?.user, photoURL: photo, displayName: name });
+            const { data } = await axios.post('https://server-five-coral.vercel.app/jwt', { email: result?.user?.email }, { withCredentials: true })
+            console.log(data);
             toast.success('Register Successful');
             navigate(location.state || "/")
         } catch (err) {
